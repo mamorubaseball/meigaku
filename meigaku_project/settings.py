@@ -13,9 +13,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR=os.path.join(BASE_DIR,'templates')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -24,15 +25,15 @@ TEMPLATE_DIR=os.path.join(BASE_DIR,'templates')
 SECRET_KEY = 'django-insecure-ox@fntkq(jb7*&fswf)$*u(i_usv5b6fx7p$l&e^fraiycvl19'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#本番環境ではDebugはfalse
-DEBUG = True #Trueから変更
-#追加
+# 本番環境ではDebugはfalse
+DEBUG = True  # Trueから変更
+# 追加
 try:
     from .local_settings import *
 except ImportError:
     pass
 
-#追加
+# 追加
 # ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 # Application definition
@@ -51,7 +52,7 @@ AUTH_USER_MODEL = 'circle_accounts.Circles'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,21 +81,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'meigaku_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# import dj_database_url
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         'USER': 'user',
-#         'PASSWORD': '',
-#         'HOST': 'host',
-#         'PORT': '',
-#     }
-# }
+# ローカルで動作させる
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -102,9 +91,8 @@ DATABASES = {
     }
 }
 
-# db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-# DATABASES['default'].update(db_from_env)
-
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -138,10 +125,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-MEDIA_URL='/media/'
-
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.2/howto/static-files/
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#
+# STATIC_URL = '/static/'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -149,8 +141,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-                    
-          
+
+
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "static"),
 # ]
@@ -173,16 +165,14 @@ MARKDOWN_EXTENSIONS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 
-LOGIN_URL='/circle_accounts/circle_login'
-LOGIN_REDIRECT_URL='/circle_accounts/circle_login_home'
-LOGOUT_REDIRECT_URL='/circle_accounts/home'
+LOGIN_URL = '/circle_accounts/circle_login'
+LOGIN_REDIRECT_URL = '/circle_accounts/circle_login_home'
+LOGOUT_REDIRECT_URL = '/circle_accounts/home'
 
-# ALLOWED_HOSTS = ["meigakuwebapp.herokuapp.com"]
 ALLOWED_HOSTS = ["*"]
 
 if not DEBUG:
