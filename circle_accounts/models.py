@@ -4,7 +4,6 @@ User,BaseUserManager,AbstractBaseUser,PermissionsMixin
 )
 from django.urls import reverse_lazy
 
-
 class CirclesManager(BaseUserManager):
     def create_user(self,username,email,password=None):
         if not email:
@@ -32,11 +31,10 @@ class CirclesManager(BaseUserManager):
         return user
 
 
-class Circles(AbstractBaseUser,PermissionsMixin
-              ):
+class Circles(AbstractBaseUser,PermissionsMixin):
     username=models.CharField('サークル名',max_length=190,unique=True)
     email=models.EmailField('メール',max_length=200)
-    # password=models.CharField('パスワード',max_length=190,unique=True)
+    # password=models.CharField('パスワード',maxlength=190,unique=True)
     is_active = models.BooleanField(default=True)
     is_staff=models.BooleanField(default=False)
 
