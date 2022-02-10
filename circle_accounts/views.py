@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import CircleContents,Circles
+from .models import CircleContents,Circles,Category
 from articles.models import Posts
 from django.views.decorators.csrf import requires_csrf_token
 from django.http import HttpResponseServerError
@@ -98,10 +98,15 @@ class CircleHomeView(LoginRequiredMixin,CreateView):
     success_url = 'circle_accounts:circle_login_home'
     def post(self, request, *args, **kwargs):
         form=CircleContentUpdateForm(request.POST,request.FILES)
+
         if form.is_valid():
             form.save(commit=False)
             post_data=CircleContents()
-            post_data.contents=form.cleaned_data['contents']
+            post_data.category=form.cleaned_data['contents']
+            category=form.cleaned_data['category']
+            category_data=Category.objects.get(name=category)
+            post_data.category_id=category_data
+
             post_data.username_id = request.user.id
             post_data.money=form.cleaned_data['money']
             post_data.place=form.cleaned_data['place']
@@ -124,11 +129,10 @@ class CircleHomeView(LoginRequiredMixin,CreateView):
             content = CircleContents.objects.get(username_id=self.request.user.id)
         except:
             content=None
-            import traceback
-            traceback.print_exc()
-            print('=====エラー内容======')
+            # import traceback
+            # traceback.print_exc()
+            # print('=====エラー内容======')
 
-        print(content)
         return render(request, 'circle_login_home.html', {
             'content': content,
             'form': form,
@@ -148,7 +152,7 @@ class CircleEditView(LoginRequiredMixin,View):
             form=CircleContentUpdateForm(
                 request.POST or None,
                 initial={
-                    'contents':content.contents,
+                    'category':content.category,
                     'how_often':content.how_often,
                     'event':content.event,
                     'place':content.place,
@@ -165,19 +169,27 @@ class CircleEditView(LoginRequiredMixin,View):
             'form':form,
         })
 
+
+
     def post(self, request, *args, **kwargs):
-        form = CircleContentUpdateForm(request.POST,request.FILES)
+        form = CircleContentUpdateForm(request.POST or None)
         try:
             content_data = CircleContents.objects.get(username_id=self.request.user.id)
         except:content_data=None
-
-        # print(content_data)
-        # print('写真データ保存',form.cleaned_data['picture'])
-
+        '''
+        Forms only get a cleaned_data attribute
+         when is_valid() has been called,
+          and you haven't called it on this new, second instance.
+        '''
+        print('POST')
+        # print(form)
         if form.is_valid():
             print('フォームok')
             post_data=CircleContents(username_id=self.request.user.id)
             post_data.contents=form.cleaned_data['contents']
+            category = form.cleaned_data['category']
+            # category_data = Category.objects.get(name=category)
+            # post_data.category.name = '野球'
             post_data.username_id=request.user.id
             post_data.money=form.cleaned_data['money']
             post_data.place=form.cleaned_data['place']
@@ -187,12 +199,21 @@ class CircleEditView(LoginRequiredMixin,View):
             post_data.member=form.cleaned_data['member']
             post_data.twitter_url=form.cleaned_data['twitter_url']
             post_data.instagram_url=form.cleaned_data['instagram_url']
-            post_data.picture=form.cleaned_data['picture']
+            if request.FILES:
+                post_data.picture=form.cleaned_data['picture']
             if content_data:
                 content_data.delete()
             post_data.save()
             print('フォームok')
             return redirect('circle_accounts:circle_login_home',self.request.user.id)
+
+class CategoryView(View):
+    def get(self, request, *args, **kwargs):
+        category_data=Category.objects.get(name=kwargs['category'])
+        post_data=Posts.objects.order_by('-id').filter(category=category_data)
+        return render(request,'circle_accounts/home.html',{
+            'post_data':post_data,
+        })
 
 
 

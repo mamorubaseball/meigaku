@@ -2,7 +2,7 @@ from django.urls import path
 from .views import HomeView,\
     CircleLoginView,CircleRegist,CircleHomeView,\
     CircleLogoutView,CircleEditView,CircleDelte,\
-    CircleDetailView
+    CircleDetailView,CategoryView
 from articles.views import PostListView,PostDetailView
 from django.contrib import admin
 
@@ -18,4 +18,5 @@ urlpatterns=[
     path('circle_edit/<int:pk>',CircleEditView.as_view(),name='circle_edit'),
     path('circle_delete/<int:pk>',CircleDelte.as_view(),name='circle_delete'),
     path('circle_detail/<int:pk>',CircleDetailView.as_view(),name='circle_detail'),
+    path('circle_category/<str:category>',CategoryView.as_view(),name='category'),
 ]

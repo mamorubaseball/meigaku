@@ -4,20 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea7c2a7c-aba3-4db0-bfdc-1b1795a30660" name="Changes" comment="ローカル環境で動かす場合">
-      <change afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    <list default="true" id="ea7c2a7c-aba3-4db0-bfdc-1b1795a30660" name="Changes" comment="リファクタリング（必要ない行の削除）">
+      <change afterPath="$PROJECT_DIR$/templates/category.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/articles/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/articles/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/circle_accounts/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_accounts/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/circle_accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/circle_accounts/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/circle_accounts/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_accounts/context_processors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/circle_accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/circle_accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/circle_accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/circle_accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/developer.md" beforeDir="false" afterPath="$PROJECT_DIR$/developer.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/meigaku_project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/meigaku_project/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/circle_login_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/circle_login_home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,6 +54,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -95,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643503345954</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="リファクタリング（必要ない行の削除）">
+      <created>1644286478040</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1644286478040</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +138,7 @@
     <MESSAGE value="ローカル環境では動作OK" />
     <MESSAGE value="&#10;ローカル環境では動作OK" />
     <MESSAGE value="ローカル環境で動かす場合" />
-    <option name="LAST_COMMIT_MESSAGE" value="ローカル環境で動かす場合" />
+    <MESSAGE value="リファクタリング（必要ない行の削除）" />
+    <option name="LAST_COMMIT_MESSAGE" value="リファクタリング（必要ない行の削除）" />
   </component>
 </project>

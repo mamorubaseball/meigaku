@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.contrib.auth.password_validation import validate_password
-from .models import Circles,CircleContents
+from .models import Circles,CircleContents,ParentCategory,Category
 from django.contrib.auth import authenticate
 from django.contrib import messages
 
@@ -38,9 +38,17 @@ class CircleLoginForm(forms.Form):
     # password = forms.CharField(label='パスワード')
 
 class CircleContentUpdateForm(forms.ModelForm):
+    # 親カテゴリの選択欄がないと絞り込めないので、定義する。モデルフォームに通常のフィールドを新しく追加。
+    category_data=Category.objects.all()
+    category_choice={}
+    for category in category_data:
+        category_choice[category]=category
+
+    category=forms.ChoiceField(label='カテゴリ',widget=forms.Select,choices=list(category_choice.items()))
     class Meta:
         model=CircleContents
-        fields=['contents','how_often','event','place','money','member','how_often_drink','twitter_url','instagram_url','picture']
+        # fields='__all__'
+        fields=['category','contents','how_often','event','place','money','member','how_often_drink','twitter_url','instagram_url','picture']
 
 
 
