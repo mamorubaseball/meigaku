@@ -1,55 +1,8 @@
-{% extends 'circle_login_home.html' %}
-{% block extrajs %}
-    <script>
-        const parentCategoryElement = $('#id_parent_category');
-        const categoryElement = $('#id_category');
-        const categories = {
-            {% for parent in parentcategory_list %}
-                '{{ parent.pk }}': [
-                    {% for category in parent.category_set.all %}
-                        {
-                            'pk': '{{ category.pk }}',
-                            'name': '{{ category.name }}'
-                        },
-                    {% endfor %}
-                ],
-            {% endfor %}
-        };
+{% extends 'base.html' %}
+{% block content %}
 
+{% for content in post_data %}
+<p>{{ content.contents }}</p>
+{% endfor %}
 
-        const changeCategory = (select) => {
-            // 子カテゴリの選択欄を空にする。
-            categoryElement.children().remove();
-
-            // 選択した親カテゴリに紐づく子カテゴリの一覧を取得する。
-            const parentId = parentCategoryElement.val();
-            const categoryList = categories[parentId];
-
-            // 子カテゴリの選択肢を作成・追加。
-            for (const category of categoryList) {
-                const option = $('<option>');
-                option.val(category['pk']);
-                option.text(category['name']);
-                categoryElement.append(option);
-            }
-
-            // 指定があれば、そのカテゴリを選択する
-            if (select !== undefined) {
-                categoryElement.val(select);
-            }
-        };
-
-
-        $('#id_parent_category').on('change', () => {
-            changeCategory();
-        });
-
-
-        // 入力値に問題があって再表示された場合、ページ表示時点で小カテゴリが絞り込まれるようにする
-        if (parentCategoryElement.val()) {
-            const selectedCategory = categoryElement.val();
-            changeCategory(selectedCategory);
-        }
-
-    </script>
 {% endblock %}

@@ -98,15 +98,16 @@ class CircleHomeView(LoginRequiredMixin,CreateView):
     success_url = 'circle_accounts:circle_login_home'
     def post(self, request, *args, **kwargs):
         form=CircleContentUpdateForm(request.POST,request.FILES)
+        print(form)
 
         if form.is_valid():
             form.save(commit=False)
             post_data=CircleContents()
-            post_data.category=form.cleaned_data['contents']
             category=form.cleaned_data['category']
-            category_data=Category.objects.get(name=category)
-            post_data.category_id=category_data
+            category_data=Category.objects.get(id=category)
+            post_data.category = category_data
 
+            post_data.category=form.cleaned_data['contents']
             post_data.username_id = request.user.id
             post_data.money=form.cleaned_data['money']
             post_data.place=form.cleaned_data['place']
@@ -172,7 +173,7 @@ class CircleEditView(LoginRequiredMixin,View):
 
 
     def post(self, request, *args, **kwargs):
-        form = CircleContentUpdateForm(request.POST or None)
+        form = CircleContentUpdateForm(request.POST,request.FILES)
         try:
             content_data = CircleContents.objects.get(username_id=self.request.user.id)
         except:content_data=None
@@ -181,15 +182,15 @@ class CircleEditView(LoginRequiredMixin,View):
          when is_valid() has been called,
           and you haven't called it on this new, second instance.
         '''
-        print('POST')
-        # print(form)
+        # print('POST')
+        print(form)
         if form.is_valid():
             print('フォームok')
             post_data=CircleContents(username_id=self.request.user.id)
-            post_data.contents=form.cleaned_data['contents']
             category = form.cleaned_data['category']
-            # category_data = Category.objects.get(name=category)
-            # post_data.category.name = '野球'
+            category_data = Category.objects.get(name=category)
+            post_data.category = category_data
+            post_data.contents=form.cleaned_data['contents']
             post_data.username_id=request.user.id
             post_data.money=form.cleaned_data['money']
             post_data.place=form.cleaned_data['place']
@@ -199,8 +200,8 @@ class CircleEditView(LoginRequiredMixin,View):
             post_data.member=form.cleaned_data['member']
             post_data.twitter_url=form.cleaned_data['twitter_url']
             post_data.instagram_url=form.cleaned_data['instagram_url']
-            if request.FILES:
-                post_data.picture=form.cleaned_data['picture']
+
+            post_data.picture=form.cleaned_data['picture']
             if content_data:
                 content_data.delete()
             post_data.save()
@@ -210,8 +211,8 @@ class CircleEditView(LoginRequiredMixin,View):
 class CategoryView(View):
     def get(self, request, *args, **kwargs):
         category_data=Category.objects.get(name=kwargs['category'])
-        post_data=Posts.objects.order_by('-id').filter(category=category_data)
-        return render(request,'circle_accounts/home.html',{
+        post_data=CircleContents.objects.order_by('-id').filter(category=category_data)
+        return render(request,'category.html',{
             'post_data':post_data,
         })
 

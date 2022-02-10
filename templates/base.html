@@ -85,6 +85,17 @@
          </svg>
          <a class="hover:text-black transition duration-200 ease-linear" href="#">カテゴリー</a>
        </h3>
+<!--       コンテキストプロセッサー-->
+          <ul>
+          {% for category in category_data %}
+              <li>
+                  <a href="{% url 'circle_accounts:category' category %}">
+                    {{ category.name }}
+                    </a>
+              </li>
+          </ul>
+{% endfor %}
+
       <h3 class="pl-1 text-sm flex items-center py-2 mb-2 hover:bg-gray-100 hover:text-gray-700 transition duration-200 ease-in">
          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="black">
             <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />

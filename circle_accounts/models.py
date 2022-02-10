@@ -47,22 +47,10 @@ class Circles(AbstractBaseUser,PermissionsMixin):
     def get_absolute_url(self):
         return reverse_lazy('circle_accounts:circle_login')
 #カテゴリ機能追加(親カテゴリと子カテゴリの作成)
-'''
-スポーツ(球技)
-　野球、サッカー、バスケ、テニス、その他
-スポーツ（球技以外)
-　弓道、バトミントン、格闘技、アウトドア
-音楽
-　軽音、合唱
-国際交流
-ボランティア
-イベント系
-研究会
-'''
-class ParentCategory(models.Model):
-    name = models.CharField('親カテゴリ名', max_length=255)
-    def __str__(self):
-        return self.name
+# class ParentCategory(models.Model):
+#     name = models.CharField('親カテゴリ名', max_length=255)
+#     def __str__(self):
+#         return self.name
 
 class Category(models.Model):
     name = models.CharField('カテゴリ名', max_length=255)

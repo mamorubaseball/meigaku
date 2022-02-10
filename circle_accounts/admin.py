@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import CircleContents,Circles,ParentCategory,Category
+from .models import CircleContents,Circles
+from .models import Category
 
 #
 admin.site.register(Circles)
